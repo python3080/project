@@ -73,7 +73,7 @@ if __name__ == '__main__':
     buttonShow = AddressBook.Button(root, text='Edit', width=10, height=5,
                                     command=(lambda e=ents: show_entry_fields(e)))
     buttonShow.pack(side=AddressBook.LEFT, padx=10, pady=10)
-    buttonPrint = AddressBook.Button(root, text='Print', width=10, height=5, command=print_table())
+    buttonPrint = AddressBook.Button(root, text='Print', width=10, height=5, command=print_table)
     buttonPrint.pack(side=AddressBook.LEFT, padx=10, pady=10)
     buttonQuit = AddressBook.Button(root, text='Quit', width=10, height=5, command=root.quit)
     buttonQuit.pack(side=AddressBook.RIGHT, padx=10, pady=10)

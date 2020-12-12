@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from sqlite3 import Error
+import tkinter as printer
 
 currentDir = str(os.getcwd()) + '\\contactbook.db'
 conn = sqlite3.connect(currentDir)
@@ -28,13 +29,24 @@ def add_table(table):
 
 
 def print_table():
+    window = printer.Tk()
+    window.geometry('530x250')
+    set = conn.execute('SELECT * FROM contacts LIMIT 0,10')
+    i=0
 
-    cur = conn.cursor()
-    cur.execute('SELECT * from contact')
-    rows = cur.fetchall()
 
-    for row in rows:
-        print(row)
+
+    for contact in set:
+        for j in range(len(contact)):
+            e = printer.Text(window, height=1, width=15, padx=5, pady=5)
+            e.grid(row=i, column=j)
+            e.insert(printer.END, contact[j])
+            if j == (len(contact)-1):
+                print('inside')
+                buttonClose = printer.Button(window, text='Close', width=10, height=5, command=window.destroy)
+                buttonClose.grid(row=i+1, column=0)
+        i+=1
+
 
 
 def edit_table(contact):

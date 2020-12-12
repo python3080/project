@@ -1,5 +1,4 @@
 import os
-from ProjectSQ import print_table
 
 def main():
     os.system('python ProjectSQ.py')
