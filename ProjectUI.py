@@ -1,7 +1,7 @@
 import ast
 import os
 import tkinter as AddressBook
-from ProjectSQ import print_table, new_id
+from ProjectSQ import print_table, new_id, delete_table
 
 fields = 'Firstname', 'Lastname', 'Phone Number', 'Email'
 
@@ -10,6 +10,8 @@ def saveContact(entries, window):
     name = entries['Firstname'].get() + ' ' + entries['Lastname'].get()
     number = entries['Phone Number'].get()
     email = entries['Email'].get()
+
+    '''
     fileExist = str(os.getcwd()) + '/saved contacts.txt'
 
     if not os.path.exists(fileExist):
@@ -28,6 +30,7 @@ def saveContact(entries, window):
         saveFile.write(str(dicky))
 
     saveFile.close()
+    '''
 
     new_id(name, number, email)
 
@@ -68,11 +71,11 @@ if __name__ == '__main__':
     root = AddressBook.Tk()
     ents = makeform(root, fields)
     root.bind('<Return>', (lambda event, e=ents: show_entry_fields(e)))
-    buttonShow = AddressBook.Button(root, text='Add', width=10, height=5, command=(lambda e=ents: show_entry_fields(e)))
-    buttonShow.pack(side=AddressBook.LEFT, padx=10, pady=10)
-    buttonShow = AddressBook.Button(root, text='Edit', width=10, height=5,
-                                    command=(lambda e=ents: show_entry_fields(e)))
-    buttonShow.pack(side=AddressBook.LEFT, padx=10, pady=10)
+    buttonAdd = AddressBook.Button(root, text='Add', width=10, height=5, command=(lambda e=ents: show_entry_fields(e)))
+    buttonAdd.pack(side=AddressBook.LEFT, padx=10, pady=10)
+    buttonDelete = AddressBook.Button(root, text='Delete', width=10, height=5,
+                                    command=(lambda e=ents: delete_table((ents[str('Firstname')].get()) + ' ' + ents[str('Lastname')].get())))
+    buttonDelete.pack(side=AddressBook.LEFT, padx=10, pady=10)
     buttonPrint = AddressBook.Button(root, text='Print', width=10, height=5, command=print_table)
     buttonPrint.pack(side=AddressBook.LEFT, padx=10, pady=10)
     buttonQuit = AddressBook.Button(root, text='Quit', width=10, height=5, command=root.quit)

@@ -3,6 +3,7 @@ import sqlite3
 from sqlite3 import Error
 import tkinter as printer
 
+fields = 'Firstname', 'Lastname', 'Phone Number', 'Email'
 currentDir = str(os.getcwd()) + '\\contactbook.db'
 conn = sqlite3.connect(currentDir)
 newTable = 'CREATE TABLE IF NOT EXISTS contacts(id integer PRIMARY KEY, name text NOT NULL, phone integer, email text);'
@@ -41,16 +42,14 @@ def print_table():
             e = printer.Text(window, height=1, width=15, padx=5, pady=5)
             e.grid(row=i, column=j)
             e.insert(printer.END, contact[j])
-            if j == (len(contact)-1):
-                print('inside')
-                buttonClose = printer.Button(window, text='Close', width=10, height=5, command=window.destroy)
-                buttonClose.grid(row=i+1, column=0)
         i+=1
+    buttonClose = printer.Button(window, text='Close', width=10, height=5, command=window.destroy)
+    buttonClose.grid(row=i + 1, column=0)
 
 
-
-def edit_table(contact):
-    sql = 'UPDATE contacts SET name = ?, phone = ?, email = ?'
+def delete_table(contact):
+    sql = 'DELETE FROM contacts WHERE name = ?'
     cur = conn.cursor()
-    cur.execute(sql, contact)
+    cur.execute(sql, (contact,))
     conn.commit()
+    print_table()
